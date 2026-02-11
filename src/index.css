@@ -29,7 +29,8 @@ body {
     border: 1px solid #ccc;
 }
 
-.movies-grid {
+.movies-grid,
+.watchlist {
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
     gap: 2rem 2rem;
@@ -80,9 +81,50 @@ body {
     border-radius: 50px;
 }
 
+.watchlist-btn {
+    border: none;
+    background: #2196f3;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
 .movie-card-genre {
     font-size: 0.9rem;
     margin-right: 10px;
+}
+
+nav {
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+ul li {
+    padding: 10px;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+nav a:hover {
+    background-color: #e7f2f1;
+    color: black;
 }
 
 .footer {
