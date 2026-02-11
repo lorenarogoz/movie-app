@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Vite build output
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.log
+
+# Editor folders
+.vscode/
+.idea/
+
+# Local environment
+.env
+.env.*.local
+
+# Cache folders
+.DS_Store
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Optional: if using yarn 2
+.yarn/
+.pnp.*
