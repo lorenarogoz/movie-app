@@ -1,11 +1,13 @@
 import React, {useState, useMemo} from 'react';
 import MovieCard from './MovieCard';
+import MovieModal from './MovieModal';
 
 export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [genre, setGenre] = useState('All');
     const [sortBy, setSortBy] = useState('rating');
     const [sortOrder, setSortOrder] = useState('desc');
+    const [selectedMovie, setSelectedMovie] = useState(null);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -103,9 +105,18 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
                         key={movie.id}
                         toggleWatchlist={toggleWatchlist}
                         isWatchlisted={watchlist.includes(movie.id)}
+                        onClick={() => setSelectedMovie(movie)}
                     ></MovieCard>
                 ))}
             </div>
+            {selectedMovie && (
+                <MovieModal
+                    movie={selectedMovie}
+                    onClose={() => setSelectedMovie(null)}
+                    toggleWatchlist={toggleWatchlist}
+                    isWatchlisted={watchlist.includes(selectedMovie.id)}
+                />
+            )}
         </div>
     );
 }

@@ -1,12 +1,17 @@
 import React from 'react';
 
-export default function MovieCard({movie, isWatchlisted, toggleWatchlist}) {
+export default function MovieCard({
+    movie,
+    isWatchlisted,
+    toggleWatchlist,
+    onClick,
+}) {
     const handlerError = (e) => {
         e.target.src = 'images/default.jpg';
     };
 
     return (
-        <div key={movie.id} className='movie-card'>
+        <div key={movie.id} className='movie-card' onClick={onClick}>
             <img
                 src={`images/${movie.image}`}
                 alt={movie.title}
@@ -22,6 +27,7 @@ export default function MovieCard({movie, isWatchlisted, toggleWatchlist}) {
                     <input
                         type='checkbox'
                         checked={isWatchlisted}
+                        onClick={(e) => e.stopPropagation()}
                         onChange={() => toggleWatchlist(movie.id)}
                     ></input>
                     <span className='slider'>

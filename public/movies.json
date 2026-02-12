@@ -4,139 +4,159 @@
     "title": "Dark Storm",
     "image": "1.jpg",
     "genre": "drama",
-    "rating": "8.3"
+    "rating": "8.3",
+    "description": "A gripping drama following lives thrown into chaos as a dark secret begins to surface."
   },
   {
     "id": 2,
     "title": "Whisper of Fate",
     "image": "2.jpg",
     "genre": "fantasy",
-    "rating": "7.7"
+    "rating": "7.7",
+    "description": "A mystical journey where destiny speaks in whispers only the chosen can hear."
   },
   {
     "id": 3,
     "title": "Beyond the Edge",
     "image": "3.jpg",
     "genre": "horror",
-    "rating": "6.3"
+    "rating": "6.3",
+    "description": "A terrifying encounter awaits those who dare to cross the boundary between worlds."
   },
   {
     "id": 4,
     "title": "Lost in Shadows",
     "image": "4.jpg",
     "genre": "action",
-    "rating": "9.3"
+    "rating": "9.3",
+    "description": "High‑octane action erupts as a rogue agent fights to escape a deadly web of betrayal."
   },
   {
     "id": 5,
     "title": "Echoes of Power",
     "image": "5.jpg",
     "genre": "fantasy",
-    "rating": "6.9"
+    "rating": "6.9",
+    "description": "Magic reverberates through an ancient kingdom on the brink of collapse."
   },
   {
     "id": 6,
     "title": "Grim Reckoning",
     "image": "6.jpg",
     "genre": "drama",
-    "rating": "8.4"
+    "rating": "8.4",
+    "description": "A tense emotional story about confronting the past before it destroys the future."
   },
   {
     "id": 7,
     "title": "Fury's Flight",
     "image": "7.jpg",
     "genre": "action",
-    "rating": "9.8"
+    "rating": "9.8",
+    "description": "A fearless warrior launches an explosive mission to stop a global threat."
   },
   {
     "id": 8,
     "title": "Path of the Forgotten",
     "image": "8.jpg",
     "genre": "action",
-    "rating": "7.2"
+    "rating": "7.2",
+    "description": "A lone fighter retraces a dangerous path to uncover a long‑lost truth."
   },
   {
     "id": 9,
     "title": "Nightmare's Threshold",
     "image": "9.jpg",
     "genre": "horror",
-    "rating": "1.7"
+    "rating": "1.7",
+    "description": "An unsettling tale where nightmares bleed into reality with horrifying consequences."
   },
   {
     "id": 10,
     "title": "Eternal Hunt",
     "image": "10.jpg",
     "genre": "fantasy",
-    "rating": "7.5"
+    "rating": "7.5",
+    "description": "A timeless chase across enchanted lands as heroes battle ancient forces."
   },
   {
     "id": 11,
     "title": "Legacy of the Void",
     "image": "11.jpg",
     "genre": "action",
-    "rating": "8.5"
+    "rating": "8.5",
+    "description": "A relentless combat adventure where a soldier fights to preserve a vanishing legacy."
   },
   {
     "id": 12,
     "title": "Shadow's Crescent",
     "image": "12.jpg",
     "genre": "horror",
-    "rating": "7.5"
+    "rating": "7.5",
+    "description": "When the moon rises, darkness awakens—and no one is safe."
   },
   {
     "id": 13,
     "title": "Crimson Dawn",
     "image": "13.jpg",
     "genre": "fantasy",
-    "rating": "8.4"
+    "rating": "8.4",
+    "description": "A kingdom drenched in prophecy faces a new dawn painted in crimson."
   },
   {
     "id": 14,
     "title": "Silent Kingdom",
     "image": "14.jpg",
     "genre": "fantasy",
-    "rating": "6.5"
+    "rating": "6.5",
+    "description": "A quiet realm holds powerful secrets that could reshape the world."
   },
   {
     "id": 15,
     "title": "Mystic Rite",
     "image": "15.jpg",
     "genre": "fantasy",
-    "rating": "9.8"
+    "rating": "9.8",
+    "description": "An elite order performs a mystical ritual to prevent an ancient evil from rising."
   },
   {
     "id": 16,
     "title": "Reign of the Lost",
     "image": "16.jpg",
     "genre": "horror",
-    "rating": "9.1"
+    "rating": "9.1",
+    "description": "A cursed kingdom returns from oblivion to reclaim the living."
   },
   {
     "id": 17,
     "title": "Timeless Myth",
     "image": "17.jpg",
     "genre": "drama",
-    "rating": "4.0"
+    "rating": "4.0",
+    "description": "A reflective story exploring how legends shape the lives of ordinary people."
   },
   {
     "id": 18,
     "title": "Oath of the Fallen",
     "image": "18.jpg",
     "genre": "fantasy",
-    "rating": "6.3"
+    "rating": "6.3",
+    "description": "A broken warrior honors an ancient oath that could restore balance—or destroy it."
   },
   {
     "id": 19,
     "title": "Veil of Night",
     "image": "19.jpg",
     "genre": "drama",
-    "rating": "9.5"
+    "rating": "9.5",
+    "description": "A powerful drama about uncovering truth hidden behind layers of silence and pain."
   },
   {
     "id": 20,
     "title": "Guardians of Twilight",
     "image": "20.jpg",
     "genre": "horror",
-    "rating": "7.4"
+    "rating": "7.4",
+    "description": "As twilight falls, mysterious guardians rise to battle horrors unseen by mankind."
   }
 ]
