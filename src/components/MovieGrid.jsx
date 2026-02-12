@@ -8,8 +8,24 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
         setSearchTerm(e.target.value);
     };
 
-    const filteredMovies = movies.filter((movie) =>
-        movie.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    const [genre, setGenre] = useState('All');
+
+    const handleGenreChange = (e) => {
+        setGenre(e.target.value);
+    };
+
+    const matchesGenre = (movie, genre) => {
+        return (
+            genre === 'All' || movie.genre.toLowerCase() === genre.toLowerCase()
+        );
+    };
+
+    const matchesSearchTerm = (movie, searchTerm) => {
+        return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
+    };
+    const filteredMovies = movies.filter(
+        (movie) =>
+            matchesGenre(movie, genre) && matchesSearchTerm(movie, searchTerm),
     );
     return (
         <div>
@@ -20,6 +36,22 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
                 value={searchTerm}
                 onChange={handleSearchChange}
             />
+            <div className='filter-bar'>
+                <div
+                    className='filter-slot'
+                    value={genre}
+                    onChange={handleGenreChange}
+                >
+                    <label>Genre</label>
+                    <select>
+                        <option>All</option>
+                        <option>Action</option>
+                        <option>Drama</option>
+                        <option>Fantasy</option>
+                        <option>Horror</option>
+                    </select>
+                </div>
+            </div>
             <div className='movies-grid'>
                 {filteredMovies.map((movie) => (
                     <MovieCard
