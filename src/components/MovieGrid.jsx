@@ -37,13 +37,9 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
                 onChange={handleSearchChange}
             />
             <div className='filter-bar'>
-                <div
-                    className='filter-slot'
-                    value={genre}
-                    onChange={handleGenreChange}
-                >
+                <div className='filter-slot'>
                     <label>Genre</label>
-                    <select>
+                    <select value={genre} onChange={handleGenreChange}>
                         <option>All</option>
                         <option>Action</option>
                         <option>Drama</option>
