@@ -4,6 +4,7 @@ import MovieCard from './MovieCard';
 export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [genre, setGenre] = useState('All');
+    const [sortBy, setSortBy] = useState('rating');
     const [sortOrder, setSortOrder] = useState('desc');
 
     const handleSearchChange = (e) => {
@@ -33,9 +34,17 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
                 matchesSearchTerm(movie, searchTerm),
         );
         const sorted = [...filteredMovies].sort((a, b) => {
-            const ra = Number(a.rating);
-            const rb = Number(b.rating);
-            return sortOrder === 'desc' ? rb - ra : ra - rb;
+            if (sortBy === 'rating') {
+                const ra = Number(a.rating);
+                const rb = Number(b.rating);
+                return sortOrder === 'desc' ? rb - ra : ra - rb;
+            } else {
+                const ta = a.title.toLowerCase();
+                const tb = b.title.toLowerCase();
+                if (ta < tb) return sortOrder === 'asc' ? -1 : 1;
+                if (ta > tb) return sortOrder === 'asc' ? 1 : -1;
+                return 0;
+            }
         });
         return sorted;
     }, [movies, genre, searchTerm, sortOrder]);
@@ -52,7 +61,11 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
             <div className='filter-bar'>
                 <div className='filter-slot'>
                     <label>Genre</label>
-                    <select value={genre} onChange={handleGenreChange}>
+                    <select
+                        className='filter-dropdown'
+                        value={genre}
+                        onChange={handleGenreChange}
+                    >
                         <option>All</option>
                         <option>Action</option>
                         <option>Drama</option>
@@ -61,10 +74,26 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
                     </select>
                 </div>
                 <div className='filter-slot'>
-                    <label>Sort</label>
-                    <button onClick={toggleSortOrder}>
-                        {sortOrder === 'desc' ? 'Desc' : 'Asc'}
-                    </button>
+                    <label>Sort by</label>
+                    <select
+                        className='filter-dropdown'
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value)}
+                    >
+                        <option value='rating'>Rating</option>
+                        <option value='title'>Title</option>
+                    </select>
+                </div>
+                <div className='filter-slot'>
+                    <label>Order</label>
+                    <select
+                        className='filter-dropdown'
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value)}
+                    >
+                        <option value='desc'>Desc</option>
+                        <option value={'asc'}>Asc</option>
+                    </select>
                 </div>
             </div>
             <div className='movies-grid'>
