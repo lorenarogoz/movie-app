@@ -1,18 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import MovieCard from './MovieCard';
 
 export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
     const [searchTerm, setSearchTerm] = useState('');
+    const [genre, setGenre] = useState('All');
+    const [sortOrder, setSortOrder] = useState('desc');
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
 
-    const [genre, setGenre] = useState('All');
-
     const handleGenreChange = (e) => {
         setGenre(e.target.value);
     };
+
+    const toggleSortOrder = () =>
+        setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'));
 
     const matchesGenre = (movie, genre) => {
         return (
@@ -23,10 +26,20 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
     const matchesSearchTerm = (movie, searchTerm) => {
         return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
     };
-    const filteredMovies = movies.filter(
-        (movie) =>
-            matchesGenre(movie, genre) && matchesSearchTerm(movie, searchTerm),
-    );
+    const filteredAndSortedMovies = useMemo(() => {
+        const filteredMovies = movies.filter(
+            (movie) =>
+                matchesGenre(movie, genre) &&
+                matchesSearchTerm(movie, searchTerm),
+        );
+        const sorted = [...filteredMovies].sort((a, b) => {
+            const ra = Number(a.rating);
+            const rb = Number(b.rating);
+            return sortOrder === 'desc' ? rb - ra : ra - rb;
+        });
+        return sorted;
+    }, [movies, genre, searchTerm, sortOrder]);
+
     return (
         <div>
             <input
@@ -47,9 +60,15 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
                         <option>Horror</option>
                     </select>
                 </div>
+                <div className='filter-slot'>
+                    <label>Sort</label>
+                    <button onClick={toggleSortOrder}>
+                        {sortOrder === 'desc' ? 'Desc' : 'Asc'}
+                    </button>
+                </div>
             </div>
             <div className='movies-grid'>
-                {filteredMovies.map((movie) => (
+                {filteredAndSortedMovies.map((movie) => (
                     <MovieCard
                         movie={movie}
                         key={movie.id}
