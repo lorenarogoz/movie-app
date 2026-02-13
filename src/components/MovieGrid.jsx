@@ -4,7 +4,13 @@ import MovieModal from './MovieModal';
 import SearchBar from './SearchBar';
 import FilterBar from './FilterBar';
 
-export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
+export default function MovieGrid({
+    movies,
+    watchlist,
+    toggleWatchlist,
+    isLoading,
+    error,
+}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [genre, setGenre] = useState('All');
     const [sortBy, setSortBy] = useState('rating');
@@ -20,8 +26,11 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
     const matchesSearchTerm = (movie, searchTerm) => {
         return movie.title.toLowerCase().includes(searchTerm.toLowerCase());
     };
+
+    const safeMovies = Array.isArray(movies) ? movies : [];
+
     const filteredAndSortedMovies = useMemo(() => {
-        const filteredMovies = movies.filter(
+        const filteredMovies = safeMovies.filter(
             (movie) =>
                 matchesGenre(movie, genre) &&
                 matchesSearchTerm(movie, searchTerm),
@@ -40,7 +49,27 @@ export default function MovieGrid({movies, watchlist, toggleWatchlist}) {
             }
         });
         return sorted;
-    }, [movies, genre, searchTerm, sortOrder]);
+    }, [movies, genre, searchTerm, sortOrder, sortBy]);
+
+    if (isLoading) {
+        return (
+            <div className='state-wrapper'>
+                <div
+                    className='spinner'
+                    aria-label='Loading...'
+                    role='status'
+                />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='state-wrapper'>
+                <p className='error-text'>{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div>

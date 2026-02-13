@@ -8,11 +8,31 @@ import {useState, useEffect} from 'react';
 function App() {
     const [movies, setMovies] = useState([]);
     const [watchlist, setWatchlist] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
+        let isMounted = true;
+        setIsLoading(true);
+        setError(null);
         fetch('movies.json')
-            .then((response) => response.json())
-            .then((data) => setMovies(data));
+            .then((response) => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            })
+            .then((data) => {
+                if (!isMounted) return;
+                setMovies(data);
+                setIsLoading(false);
+            })
+            .catch((err) => {
+                if (!isMounted) return;
+                setError('Try again');
+                setIsLoading(false);
+            });
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const toggleWatchlist = (movieId) => {
@@ -46,6 +66,8 @@ function App() {
                                     movies={movies}
                                     watchlist={watchlist}
                                     toggleWatchlist={toggleWatchlist}
+                                    isLoading={isLoading}
+                                    error={error}
                                 />
                             }
                         ></Route>
