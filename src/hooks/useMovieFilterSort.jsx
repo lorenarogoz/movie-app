@@ -1,4 +1,4 @@
-import {useMemo, useState, useCallback} from 'react';
+import {useMemo, useState} from 'react';
 
 export default function useMovieFilterSort(movies) {
     const safeMovies = Array.isArray(movies) ? movies : [];
