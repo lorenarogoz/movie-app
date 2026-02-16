@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function MovieCard({
     movie,
     isWatchlisted,
@@ -9,9 +7,12 @@ export default function MovieCard({
     const handlerError = (e) => {
         e.target.src = 'images/default.jpg';
     };
-
+    const handleCardClick = (e) => {
+        if (e.target.closest('.switch')) return;
+        onClick?.(e);
+    };
     return (
-        <div key={movie.id} className='movie-card' onClick={onClick}>
+        <div key={movie.id} className='movie-card' onClick={handleCardClick}>
             <img
                 src={`images/${movie.image}`}
                 alt={movie.title}
