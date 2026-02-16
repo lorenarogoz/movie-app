@@ -170,27 +170,18 @@ nav a:hover {
     color: #333;
 }
 
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px;
-    z-index: 1000;
-}
-
 .modal-window {
-    position: relative;
+    margin: auto;
     width: min(800px, 95vw);
     max-height: 90vh;
     background: #272727;
+    border: none;
     border-radius: 12px;
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     display: grid;
     grid-template-columns: 300px 1fr;
+    padding: 0;
 }
 
 .modal-window img {
@@ -249,6 +240,10 @@ nav a:hover {
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.9);
     letter-spacing: 0.1px;
+}
+
+.modal-window::backdrop {
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .close-btn {
