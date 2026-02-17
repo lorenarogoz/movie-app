@@ -5,6 +5,7 @@ import Watchlist from './components/Watchlist';
 import MovieDetailsPage from './components/MovieDetailsPage';
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
+import Layout from './components/Layout';
 
 function App() {
     const [movies, setMovies] = useState([]);
@@ -45,76 +46,61 @@ function App() {
     };
 
     return (
-        <div className='App'>
-            <div className='container'>
-                <Header></Header>
-                <Router>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to='/' state={{resetFilters: true}}>
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to='/watchlist'>WatchList</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                    <Routes>
-                        <Route
-                            path='/'
-                            element={
-                                <MovieGrid
-                                    key='home'
-                                    movies={movies}
-                                    watchlist={watchlist}
-                                    toggleWatchlist={toggleWatchlist}
-                                    isLoading={isLoading}
-                                    error={error}
-                                />
-                            }
-                        ></Route>
-                        <Route
-                            path='/movies'
-                            element={
-                                <MovieGrid
-                                    key='movies'
-                                    movies={movies}
-                                    watchlist={watchlist}
-                                    toggleWatchlist={toggleWatchlist}
-                                    isLoading={isLoading}
-                                    error={error}
-                                />
-                            }
-                        ></Route>
-                        <Route
-                            path='/movies/:id'
-                            element={
-                                <MovieDetailsPage
-                                    movies={movies}
-                                    watchlist={watchlist}
-                                    toggleWatchlist={toggleWatchlist}
-                                    isLoading={isLoading}
-                                    error={error}
-                                />
-                            }
-                        ></Route>
-                        <Route
-                            path='/watchlist'
-                            element={
-                                <Watchlist
-                                    movies={movies}
-                                    watchlist={watchlist}
-                                    toggleWatchlist={toggleWatchlist}
-                                />
-                            }
-                        ></Route>
-                    </Routes>
-                </Router>
-            </div>
-            <Footer></Footer>
-        </div>
+        <Router>
+            <Routes>
+                <Route element={<Layout />}>
+                    <Route
+                        index
+                        element={
+                            <MovieGrid
+                                movies={movies}
+                                watchlist={watchlist}
+                                toggleWatchlist={toggleWatchlist}
+                                isLoading={isLoading}
+                                error={error}
+                            />
+                        }
+                    />
+
+                    <Route
+                        path='movies'
+                        element={
+                            <MovieGrid
+                                movies={movies}
+                                watchlist={watchlist}
+                                toggleWatchlist={toggleWatchlist}
+                                isLoading={isLoading}
+                                error={error}
+                            />
+                        }
+                    />
+
+                    <Route
+                        path='movies/:id'
+                        element={
+                            <MovieDetailsPage
+                                movies={movies}
+                                watchlist={watchlist}
+                                toggleWatchlist={toggleWatchlist}
+                                isLoading={isLoading}
+                                error={error}
+                            />
+                        }
+                    />
+
+                    <Route
+                        path='watchlist'
+                        element={
+                            <Watchlist
+                                movies={movies}
+                                watchlist={watchlist}
+                                toggleWatchlist={toggleWatchlist}
+                            />
+                        }
+                    />
+                </Route>
+            </Routes>
+        </Router>
     );
 }
 
