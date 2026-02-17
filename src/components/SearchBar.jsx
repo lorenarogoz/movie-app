@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 
 export default function SearchBar({
     value,
-    onChange,
+    onSubmit,
     placeholder = 'Search movies...',
 }) {
     const [localValue, setLocalValue] = useState(value);
@@ -11,18 +11,22 @@ export default function SearchBar({
         setLocalValue(value);
     }, [value]);
 
-    useEffect(() => {
-        const id = setTimeout(() => onChange(localValue), 250);
-        return () => clearTimeout(id);
-    }, [localValue, onChange]);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const term = localValue.trim();
+        onSubmit?.(term);
+    };
 
     return (
-        <input
-            type='text'
-            className='search-input'
-            placeholder={placeholder}
-            value={localValue}
-            onChange={(e) => setLocalValue(e.target.value)}
-        />
+        <form onSubmit={handleSubmit} className='search-form'>
+            <input
+                type='text'
+                className='search-input'
+                placeholder={placeholder}
+                value={localValue}
+                onChange={(e) => setLocalValue(e.target.value)}
+                aria-label='Search movies'
+            />
+        </form>
     );
 }

@@ -12,6 +12,9 @@ export default function MovieGrid({
     isLoading,
     error,
 }) {
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const isModalOpen = !!selectedMovie;
+
     const {
         searchTerm,
         setSearchTerm,
@@ -23,9 +26,6 @@ export default function MovieGrid({
         setSortOrder,
         filteredAndSortedMovies,
     } = useMovieFilterSort(movies);
-
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const isModalOpen = !!selectedMovie;
 
     if (isLoading) {
         return (
@@ -49,7 +49,8 @@ export default function MovieGrid({
 
     return (
         <div>
-            <SearchBar value={searchTerm} onChange={setSearchTerm} />
+            <SearchBar value={searchTerm} onSubmit={setSearchTerm} />
+
             <FilterBar
                 genre={genre}
                 onGenreChange={setGenre}
@@ -67,9 +68,10 @@ export default function MovieGrid({
                         toggleWatchlist={toggleWatchlist}
                         isWatchlisted={watchlist.includes(movie.id)}
                         onClick={() => setSelectedMovie(movie)}
-                    ></MovieCard>
+                    />
                 ))}
             </div>
+
             {isModalOpen && (
                 <MovieModal
                     movie={selectedMovie}
