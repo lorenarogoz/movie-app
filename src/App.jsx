@@ -2,7 +2,14 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import MovieGrid from './components/MovieGrid';
 import Watchlist from './components/Watchlist';
-import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import MovieDetailsPage from './components/MovieDetailsPage';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link,
+    Navigate,
+} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
 function App() {
@@ -15,7 +22,7 @@ function App() {
         let isMounted = true;
         setIsLoading(true);
         setError(null);
-        fetch('movies.json')
+        fetch('/movies.json')
             .then((response) => {
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 return response.json();
@@ -63,6 +70,34 @@ function App() {
                             path='/'
                             element={
                                 <MovieGrid
+                                    movies={movies}
+                                    watchlist={watchlist}
+                                    toggleWatchlist={toggleWatchlist}
+                                    isLoading={isLoading}
+                                    error={error}
+                                />
+                            }
+                        ></Route>
+                        <Route
+                            path='/'
+                            element={<Navigate to='/movies' replace />}
+                        ></Route>
+                        <Route
+                            path='/movies'
+                            element={
+                                <MovieGrid
+                                    movies={movies}
+                                    watchlist={watchlist}
+                                    toggleWatchlist={toggleWatchlist}
+                                    isLoading={isLoading}
+                                    error={error}
+                                />
+                            }
+                        ></Route>
+                        <Route
+                            path='/movies/:id'
+                            element={
+                                <MovieDetailsPage
                                     movies={movies}
                                     watchlist={watchlist}
                                     toggleWatchlist={toggleWatchlist}

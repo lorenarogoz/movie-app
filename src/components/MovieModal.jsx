@@ -54,7 +54,7 @@ export default function MovieModal({
                 ✕
             </button>
 
-            <img src={`images/${movie.image}`} alt={movie.title} />
+            <img src={`/images/${movie.image}`} alt={movie.title} />
             <div className='modal-info'>
                 <h3 id='modal-title' className='modal-card-title'>
                     {movie.title}
