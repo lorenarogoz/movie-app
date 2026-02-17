@@ -3,13 +3,7 @@ import Header from './components/Header';
 import MovieGrid from './components/MovieGrid';
 import Watchlist from './components/Watchlist';
 import MovieDetailsPage from './components/MovieDetailsPage';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link,
-    Navigate,
-} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
 function App() {
@@ -58,7 +52,9 @@ function App() {
                     <nav>
                         <ul>
                             <li>
-                                <Link to='/'>Home</Link>
+                                <Link to='/' state={{resetFilters: true}}>
+                                    Home
+                                </Link>
                             </li>
                             <li>
                                 <Link to='/watchlist'>WatchList</Link>
@@ -70,6 +66,7 @@ function App() {
                             path='/'
                             element={
                                 <MovieGrid
+                                    key='home'
                                     movies={movies}
                                     watchlist={watchlist}
                                     toggleWatchlist={toggleWatchlist}
@@ -79,13 +76,10 @@ function App() {
                             }
                         ></Route>
                         <Route
-                            path='/'
-                            element={<Navigate to='/movies' replace />}
-                        ></Route>
-                        <Route
                             path='/movies'
                             element={
                                 <MovieGrid
+                                    key='movies'
                                     movies={movies}
                                     watchlist={watchlist}
                                     toggleWatchlist={toggleWatchlist}
