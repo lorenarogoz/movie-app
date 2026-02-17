@@ -5,7 +5,7 @@ export default function MovieCard({
     onClick,
 }) {
     const handlerError = (e) => {
-        e.target.src = 'images/default.jpg';
+        e.target.src = '/images/default.jpg';
     };
     const handleCardClick = (e) => {
         if (e.target.closest('.switch')) return;
@@ -14,7 +14,7 @@ export default function MovieCard({
     return (
         <div key={movie.id} className='movie-card' onClick={handleCardClick}>
             <img
-                src={`images/${movie.image}`}
+                src={`/images/${movie.image}`}
                 alt={movie.title}
                 onError={handlerError}
             />

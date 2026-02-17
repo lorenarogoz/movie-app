@@ -310,3 +310,52 @@ nav a:hover {
     font-size: 1.2rem;
     opacity: 0.8;
 }
+
+.movie-details {
+    padding-inline: 30px;
+}
+
+.movie-details .movie-card {
+    display: block;
+    max-width: 300px;
+    margin: 0 auto 20px;
+    text-align: center;
+    transform: none !important;
+}
+
+.movie-details .movie-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+}
+
+.movie-details .movie-card-info {
+    padding: 12px 0;
+    text-align: center;
+}
+
+.movie-details .movie-card-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-bottom: 6px;
+}
+
+.movie-details .movie-card-genre,
+.movie-details .movie-card-rating {
+    display: inline-block;
+    margin: 0 6px;
+}
+
+.movie-details .modal-card-description {
+    max-width: 560px;
+    margin: 12px auto 0;
+    text-align: center;
+}
+.movie-error {
+    justify-content: center;
+    display: flex;
+}
