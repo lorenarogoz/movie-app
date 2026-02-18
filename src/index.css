@@ -359,3 +359,8 @@ nav a:hover {
     justify-content: center;
     display: flex;
 }
+nav a.active {
+    color: #b052bd;
+    font-weight: bold;
+    text-decoration: underline;
+}
