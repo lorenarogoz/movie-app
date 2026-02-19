@@ -1,10 +1,14 @@
-export default function MovieCard({
-    movie,
-    isWatchlisted,
-    toggleWatchlist,
-    onClick,
-}) {
-    const handlerError = (e) => {
+import {useDispatch, useSelector} from 'react-redux';
+import {toggle as toggleWatchlist} from '../store/watchlistSlice';
+export default function MovieCard({movie, onClick}) {
+    if (!movie) return null;
+
+    const dispatch = useDispatch();
+    const isWatchlisted = useSelector((s) =>
+        s.watchlist.includes(Number(movie.id)),
+    );
+
+    const handleError = (e) => {
         e.target.src = '/images/default.jpg';
     };
     const handleCardClick = (e) => {
@@ -12,11 +16,11 @@ export default function MovieCard({
         onClick?.(e);
     };
     return (
-        <div key={movie.id} className='movie-card' onClick={handleCardClick}>
+        <div className='movie-card' onClick={handleCardClick}>
             <img
                 src={`/images/${movie.image}`}
                 alt={movie.title}
-                onError={handlerError}
+                onError={handleError}
             />
             <div className='movie-card-info'>
                 <h3 className='movie-card-title'>{movie.title}</h3>
@@ -29,7 +33,7 @@ export default function MovieCard({
                         type='checkbox'
                         checked={isWatchlisted}
                         onClick={(e) => e.stopPropagation()}
-                        onChange={() => toggleWatchlist(movie.id)}
+                        onChange={() => dispatch(toggleWatchlist(movie.id))}
                     ></input>
                     <span className='slider'>
                         <span className='slider-label'>
