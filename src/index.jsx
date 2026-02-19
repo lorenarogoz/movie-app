@@ -1,7 +1,23 @@
-import ReactDOM from "react-dom/client";
+import ReactDOM from 'react-dom/client';
 
-import App from "./App.jsx";
-import "./index.css";
+import {Provider} from 'react-redux';
+import {store} from './store/store';
 
-const entryPoint = document.getElementById("root");
-ReactDOM.createRoot(entryPoint).render(<App />);
+import App from './App.jsx';
+import './index.css';
+
+store.subscribe(() => {
+    try {
+        localStorage.setItem(
+            'watchlist',
+            JSON.stringify(store.getState().watchlist),
+        );
+    } catch {}
+});
+
+const entryPoint = document.getElementById('root');
+ReactDOM.createRoot(entryPoint).render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+);

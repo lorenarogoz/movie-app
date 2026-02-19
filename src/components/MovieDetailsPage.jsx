@@ -1,14 +1,10 @@
-import {useParams, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import MovieCard from './MovieCard';
+import {useSelector} from 'react-redux';
 
-export default function MovieDetailsPage({
-    movies,
-    watchlist,
-    toggleWatchlist,
-    isLoading,
-    error,
-}) {
+export default function MovieDetailsPage() {
     const {id} = useParams();
+    const {items: movies, isLoading, error} = useSelector((s) => s.movies);
 
     if (isLoading) {
         return (
@@ -43,16 +39,9 @@ export default function MovieDetailsPage({
         );
     }
 
-    const isWatchlisted = watchlist.includes(movie.id);
-
     return (
         <section className='movie-details'>
-            <MovieCard
-                movie={movie}
-                isWatchlisted={isWatchlisted}
-                toggleWatchlist={toggleWatchlist}
-                onClick={undefined}
-            />
+            <MovieCard movie={movie} />
         </section>
     );
 }

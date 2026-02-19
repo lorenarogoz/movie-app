@@ -1,19 +1,22 @@
-import {useState} from 'react';
 import MovieCard from './MovieCard';
 import MovieModal from './MovieModal';
 import SearchBar from './SearchBar';
 import FilterBar from './FilterBar';
 import useMovieFilterSort from '../hooks/useMovieFilterSort';
+import {toggle as toggleWatchlist} from '../store/watchlistSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+    selectCurrentMovie,
+    setCurrentMovieId,
+    clearCurrentMovieId,
+} from '../store/moviesSlice';
 
-export default function MovieGrid({
-    movies,
-    watchlist,
-    toggleWatchlist,
-    isLoading,
-    error,
-}) {
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const isModalOpen = !!selectedMovie;
+export default function MovieGrid({}) {
+    const dispatch = useDispatch();
+    const {items: movies, isLoading, error} = useSelector((s) => s.movies);
+    const watchlist = useSelector((s) => s.watchlist);
+    const currentMovie = useSelector(selectCurrentMovie);
+    const isModalOpen = !!currentMovie;
 
     const {
         searchTerm,
@@ -65,20 +68,18 @@ export default function MovieGrid({
                     <MovieCard
                         movie={movie}
                         key={movie.id}
-                        toggleWatchlist={toggleWatchlist}
-                        isWatchlisted={watchlist.includes(movie.id)}
-                        onClick={() => setSelectedMovie(movie)}
+                        onClick={() => dispatch(setCurrentMovieId(movie.id))}
                     />
                 ))}
             </div>
 
             {isModalOpen && (
                 <MovieModal
-                    movie={selectedMovie}
+                    movie={currentMovie}
                     open={isModalOpen}
-                    onClose={() => setSelectedMovie(null)}
-                    toggleWatchlist={toggleWatchlist}
-                    isWatchlisted={watchlist.includes(selectedMovie.id)}
+                    onClose={() => dispatch(clearCurrentMovieId())}
+                    toggleWatchlist={(id) => dispatch(toggleWatchlist(id))}
+                    isWatchlisted={watchlist.includes(Number(currentMovie.id))}
                 />
             )}
         </div>

@@ -1,12 +1,6 @@
 import {useCallback, useEffect, useRef} from 'react';
 
-export default function MovieModal({
-    movie,
-    open,
-    onClose,
-    toggleWatchlist,
-    isWatchlisted,
-}) {
+export default function MovieModal({movie, open, onClose}) {
     const ref = useRef(null);
 
     useEffect(() => {
