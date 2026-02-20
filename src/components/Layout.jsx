@@ -14,7 +14,6 @@ export default function Layout() {
                             <NavLink
                                 to='/'
                                 end
-                                state={{resetFilters: true}}
                                 className={({isActive}) =>
                                     isActive ? 'active' : undefined
                                 }
