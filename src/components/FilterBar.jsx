@@ -1,6 +1,6 @@
-import {useId} from 'react';
+import {useId, memo} from 'react';
 
-export default function FilterBar({
+function FilterBar({
     genre,
     onGenreChange,
     sortBy,
@@ -11,6 +11,7 @@ export default function FilterBar({
     const genreId = useId();
     const sortById = useId();
     const sortOrderId = useId();
+
     return (
         <div className='filter-bar'>
             <div className='filter-slot'>
@@ -57,3 +58,5 @@ export default function FilterBar({
         </div>
     );
 }
+
+export default memo(FilterBar);
