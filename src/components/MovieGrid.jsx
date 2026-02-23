@@ -3,19 +3,26 @@ import MovieModal from './MovieModal';
 import SearchBar from './SearchBar';
 import FilterBar from './FilterBar';
 import useMovieFilterSort from '../hooks/useMovieFilterSort';
-import {toggle as toggleWatchlist} from '../store/watchlistSlice';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {
     selectCurrentMovie,
     setCurrentMovieId,
     clearCurrentMovieId,
 } from '../store/moviesSlice';
 
-export default function MovieGrid({}) {
+export default function MovieGrid() {
     const dispatch = useDispatch();
-    const {items: movies, isLoading, error} = useSelector((s) => s.movies);
-    const watchlist = useSelector((s) => s.watchlist);
-    const currentMovie = useSelector(selectCurrentMovie);
+
+    const {movies, isLoading, error, currentMovie} = useSelector(
+        (s) => ({
+            movies: s.movies.items,
+            isLoading: s.movies.isLoading,
+            error: s.movies.error,
+            currentMovie: selectCurrentMovie(s),
+        }),
+        shallowEqual,
+    );
+
     const isModalOpen = !!currentMovie;
 
     const {
@@ -63,23 +70,29 @@ export default function MovieGrid({}) {
                 onSortOrderChange={setSortOrder}
             />
 
-            <div className='movies-grid'>
-                {filteredAndSortedMovies.map((movie) => (
-                    <MovieCard
-                        movie={movie}
-                        key={movie.id}
-                        onClick={() => dispatch(setCurrentMovieId(movie.id))}
-                    />
-                ))}
-            </div>
+            {filteredAndSortedMovies.length === 0 ? (
+                <div className='state-wrapper'>
+                    <p className='empty-text'>No movies match your filters.</p>
+                </div>
+            ) : (
+                <div className='movies-grid'>
+                    {filteredAndSortedMovies.map((movie) => (
+                        <MovieCard
+                            movie={movie}
+                            key={movie.id}
+                            onClick={() =>
+                                dispatch(setCurrentMovieId(movie.id))
+                            }
+                        />
+                    ))}
+                </div>
+            )}
 
             {isModalOpen && (
                 <MovieModal
                     movie={currentMovie}
                     open={isModalOpen}
                     onClose={() => dispatch(clearCurrentMovieId())}
-                    toggleWatchlist={(id) => dispatch(toggleWatchlist(id))}
-                    isWatchlisted={watchlist.includes(Number(currentMovie.id))}
                 />
             )}
         </div>

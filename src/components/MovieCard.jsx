@@ -21,6 +21,7 @@ export default function MovieCard({movie, onClick}) {
                 src={`/images/${movie.image}`}
                 alt={movie.title}
                 onError={handleError}
+                loading='lazy'
             />
             <div className='movie-card-info'>
                 <h3 className='movie-card-title'>{movie.title}</h3>
@@ -34,6 +35,11 @@ export default function MovieCard({movie, onClick}) {
                         checked={isWatchlisted}
                         onClick={(e) => e.stopPropagation()}
                         onChange={() => dispatch(toggleWatchlist(movie.id))}
+                        aria-label={
+                            isWatchlisted
+                                ? 'Remove from watchlist'
+                                : 'Add to watchlist'
+                        }
                     ></input>
                     <span className='slider'>
                         <span className='slider-label'>
