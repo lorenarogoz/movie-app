@@ -1,12 +1,30 @@
 import MovieCard from './MovieCard';
-import {useSelector} from 'react-redux';
+import {useMemo} from 'react';
+import {useSelector, shallowEqual} from 'react-redux';
 
 export default function Watchlist() {
-    const movies = useSelector((s) => s.movies.items);
-    const isLoading = useSelector((s) => s.movies.isLoading);
-    const watchlist = useSelector((s) => s.watchlist);
+    const {movies, isLoading, error, watchlist} = useSelector(
+        (s) => ({
+            movies: s.movies.items,
+            isLoading: s.movies.isLoading,
+            error: s.movies.error,
+            watchlist: s.watchlist,
+        }),
+        shallowEqual,
+    );
+    const moviesMap = useMemo(() => {
+        const map = new Map();
+        movies.forEach((m) => map.set(Number(m.id), m));
+        return map;
+    }, [movies]);
 
-    if (isLoading || !Array.isArray(movies) || movies.length === 0) {
+    const items = watchlist
+        .map((id) => moviesMap.get(Number(id)))
+        .filter(Boolean);
+
+    const isEmpty = items.length === 0;
+    const noMovieAvailable = !Array.isArray(movies) || movies.length === 0;
+    if (isLoading) {
         return (
             <div className='state-wrapper'>
                 <div
@@ -18,11 +36,21 @@ export default function Watchlist() {
         );
     }
 
-    const items = watchlist
-        .map((id) => movies.find((m) => Number(m.id) === Number(id)))
-        .filter(Boolean);
+    if (error) {
+        return (
+            <div className='state-wrapper'>
+                <p className='error-text'>{error}</p>
+            </div>
+        );
+    }
 
-    const isEmpty = items.length === 0;
+    if (noMovieAvailable) {
+        return (
+            <div className='state-wrapper'>
+                <p className='empty-text'>No movies available.</p>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -34,7 +62,7 @@ export default function Watchlist() {
             ) : (
                 <div className='watchlist'>
                     {items.map((movie) => (
-                        <MovieCard key={movie.id} movie={movie}></MovieCard>
+                        <MovieCard key={movie.id} movie={movie} />
                     ))}
                 </div>
             )}

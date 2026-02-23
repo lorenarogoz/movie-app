@@ -31,16 +31,9 @@ const moviesSlice = createSlice({
             .addCase(fetchMovies.fulfilled, (state, action) => {
                 state.items = action.payload ?? [];
                 state.isLoading = false;
-
-                if (
-                    state.currentMovieId &&
-                    !state.items.some((m) => m.id === state.currentMovieId)
-                ) {
-                    state.currentMovieId = null;
-                }
             })
             .addCase(fetchMovies.rejected, (state) => {
-                state.error = 'Try again';
+                state.error = action.error?.message || 'Try again';
                 state.isLoading = false;
             });
     },
